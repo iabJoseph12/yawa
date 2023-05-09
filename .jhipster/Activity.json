@@ -1,0 +1,60 @@
+{
+  "applications": "*",
+  "changelogDate": "20230509121209",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "activity",
+  "fields": [
+    {
+      "fieldName": "activityType",
+      "fieldType": "ActivityType",
+      "fieldValues": "STRENGTH,CARDIO,FLEXIBILITY,MOBILITY"
+    },
+    {
+      "fieldName": "activityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workWeight",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "workRepetitions",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "workSets",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "workSetIntensity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workIntensity",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "workDuration",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "workDistance",
+      "fieldType": "Float"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Activity",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "workout",
+      "otherEntityRelationshipName": "activity",
+      "relationshipName": "activity",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20230509121207",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "session",
+  "fields": [
+    {
+      "fieldName": "sessionNotes",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Session",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "workout",
+      "otherEntityRelationshipName": "sessionid",
+      "relationshipName": "workout",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "calendarDay",
+      "otherEntityRelationshipName": "session",
+      "relationshipName": "date",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

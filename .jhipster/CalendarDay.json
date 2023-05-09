@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20230509121206",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "calendar_day",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CalendarDay",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "session",
+      "otherEntityRelationshipName": "date",
+      "relationshipName": "session",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}
