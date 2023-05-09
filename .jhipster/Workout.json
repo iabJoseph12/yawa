@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20230509122820",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "workout",
+  "fields": [
+    {
+      "fieldName": "routineName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Workout",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "activity",
+      "otherEntityRelationshipName": "activity",
+      "relationshipName": "activity",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "session",
+      "otherEntityRelationshipName": "workout",
+      "relationshipName": "sessionid",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
