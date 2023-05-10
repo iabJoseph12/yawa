@@ -8,3 +8,19 @@ Main page styles
   background: url('../../../content/images/jhipster_family_member_2.svg') no-repeat center top;
   background-size: contain;
 }
+
+.btn-long {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.today {
+  background-color: #007bff;
+  color: #fff;
+}

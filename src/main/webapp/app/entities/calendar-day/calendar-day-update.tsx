@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ICalendarDay } from 'app/shared/model/calendar-day.model';
 import { getEntity, updateEntity, createEntity, reset } from './calendar-day.reducer';
+import DatePicker from 'react-datepicker';
 
 export const CalendarDayUpdate = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,9 @@ export const CalendarDayUpdate = () => {
   const loading = useAppSelector(state => state.calendarDay.loading);
   const updating = useAppSelector(state => state.calendarDay.updating);
   const updateSuccess = useAppSelector(state => state.calendarDay.updateSuccess);
+
+  const today = new Date();
+  const todayIsoString = today.toISOString();
 
   const handleClose = () => {
     navigate('/calendar-day' + location.search);
@@ -53,6 +57,8 @@ export const CalendarDayUpdate = () => {
     } else {
       dispatch(updateEntity(entity));
     }
+
+    navigate('/session/new');
   };
 
   const defaultValues = () =>
@@ -67,7 +73,7 @@ export const CalendarDayUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="yawaApp.calendarDay.home.createOrEditLabel" data-cy="CalendarDayCreateUpdateHeading">
-            Create or edit a Calendar Day
+            Start your workout for this day?
           </h2>
         </Col>
       </Row>
@@ -79,7 +85,6 @@ export const CalendarDayUpdate = () => {
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? <ValidatedField name="id" required readOnly id="calendar-day-id" label="ID" validate={{ required: true }} /> : null}
               <ValidatedField label="Date" id="calendar-day-date" name="date" data-cy="date" type="date" />
-              <ValidatedField label="Created By" id="calendar-day-createdBy" name="createdBy" data-cy="createdBy" type="text" />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/calendar-day" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
@@ -88,7 +93,7 @@ export const CalendarDayUpdate = () => {
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
-                &nbsp; Save
+                &nbsp; Start
               </Button>
             </ValidatedForm>
           )}

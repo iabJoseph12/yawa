@@ -2,28 +2,46 @@ import './home.scss';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import { Row, Col, Alert } from 'reactstrap';
-
+import Calendar from 'react-calendar';
+import { Row, Col, Alert, Button } from 'reactstrap';
+import { useState } from 'react';
 import { useAppSelector } from 'app/config/store';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
+  const [date, setDate] = useState(new Date());
+
+  const highlightToday = ({ date, view }) => {
+    if (view === 'month' && date.getDate() === new Date().getDate()) {
+      return 'today';
+    }
+  };
 
   return (
     <Row>
-      <Col md="3" className="pad">
-        <span className="hipster rounded" />
-      </Col>
       <Col md="9">
-        <h2>Welcome, Java Hipster!</h2>
-        <p className="lead">This is your homepage</p>
         {account?.login ? (
           <div>
+            <h2>Dashboard</h2>
             <Alert color="success">You are logged in as user &quot;{account.login}&quot;.</Alert>
+            <Button color="primary" outline className="btn-long">
+              <Link to="/calendar-day/new">Start your workout</Link>
+            </Button>
+            <br />
+            <Button color="primary" outline className="btn-long">
+              Create a routine
+            </Button>
+            <br />
+            <Button color="primary" outline className="btn-long">
+              Write in your food diary
+            </Button>
+            <br />
+            <br />
+            <Calendar value={date} tileClassName={highlightToday} />
           </div>
         ) : (
           <div>
+            <h2>Welcome to Yet Another Workout App!</h2>
             <Alert color="warning">
               If you want to
               <span>&nbsp;</span>
@@ -44,42 +62,6 @@ export const Home = () => {
           </div>
         )}
         <p>If you have any question on JHipster:</p>
-
-        <ul>
-          <li>
-            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-              JHipster homepage
-            </a>
-          </li>
-          <li>
-            <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-              JHipster on Stack Overflow
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-              JHipster bug tracker
-            </a>
-          </li>
-          <li>
-            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              JHipster public chat room
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
-              follow @jhipster on Twitter
-            </a>
-          </li>
-        </ul>
-
-        <p>
-          If you like JHipster, don&apos;t forget to give us a star on{' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          !
-        </p>
       </Col>
     </Row>
   );
