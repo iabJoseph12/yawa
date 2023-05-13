@@ -7,10 +7,12 @@ import CalendarDay from './calendar-day';
 import CalendarDayDetail from './calendar-day-detail';
 import CalendarDayUpdate from './calendar-day-update';
 import CalendarDayDeleteDialog from './calendar-day-delete-dialog';
+import CalendarDayStart from './calendar-day-start';
 
 const CalendarDayRoutes = () => (
   <ErrorBoundaryRoutes>
     <Route index element={<CalendarDay />} />
+    <Route path="start" element={<CalendarDayStart />} />
     <Route path="new" element={<CalendarDayUpdate />} />
     <Route path=":id">
       <Route index element={<CalendarDayDetail />} />

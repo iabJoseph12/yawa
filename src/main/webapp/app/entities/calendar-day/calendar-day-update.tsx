@@ -57,8 +57,6 @@ export const CalendarDayUpdate = () => {
     } else {
       dispatch(updateEntity(entity));
     }
-
-    navigate('/session/new');
   };
 
   const defaultValues = () =>

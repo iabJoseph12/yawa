@@ -25,7 +25,7 @@ export const Home = () => {
             <h2>Dashboard</h2>
             <Alert color="success">You are logged in as user &quot;{account.login}&quot;.</Alert>
             <Button color="primary" outline className="btn-long">
-              <Link to="/calendar-day/new">Start your workout</Link>
+              <Link to="/calendar-day/start">Start your workout</Link>
             </Button>
             <br />
             <Button color="primary" outline className="btn-long">

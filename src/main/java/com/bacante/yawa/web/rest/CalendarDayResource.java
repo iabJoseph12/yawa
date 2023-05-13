@@ -1,11 +1,14 @@
 package com.bacante.yawa.web.rest;
 
 import com.bacante.yawa.domain.CalendarDay;
+import com.bacante.yawa.domain.Session;
 import com.bacante.yawa.repository.CalendarDayRepository;
 import com.bacante.yawa.service.CalendarDayService;
+import com.bacante.yawa.service.SessionService;
 import com.bacante.yawa.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,11 +42,42 @@ public class CalendarDayResource {
 
     private final CalendarDayService calendarDayService;
 
+    private final SessionService sessionService;
+
     private final CalendarDayRepository calendarDayRepository;
 
-    public CalendarDayResource(CalendarDayService calendarDayService, CalendarDayRepository calendarDayRepository) {
+    public CalendarDayResource(
+        CalendarDayService calendarDayService,
+        CalendarDayRepository calendarDayRepository,
+        SessionService sessionService
+    ) {
         this.calendarDayService = calendarDayService;
         this.calendarDayRepository = calendarDayRepository;
+        this.sessionService = sessionService;
+    }
+
+    /**
+     *
+     * @param calendarDay
+     * @return
+     * @throws URISyntaxException
+     */
+    @PostMapping("/calendar-days/start")
+    public ResponseEntity<CalendarDay> createCalendarDayWithSession(@RequestBody CalendarDay calendarDay) throws URISyntaxException {
+        log.debug("REST request to save CalendarDay : {}", calendarDay);
+        if (calendarDay.getId() != null) {
+            throw new BadRequestAlertException("A new calendarDay cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        calendarDay.setDate(LocalDate.now());
+        // Create a new session
+        Session newSession = new Session();
+        calendarDay.getSessions().add(newSession);
+        CalendarDay result = calendarDayService.save(calendarDay);
+        Session sessionResult = sessionService.save(newSession);
+        return ResponseEntity
+            .created(new URI("/api/calendar-days/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
+            .body(result);
     }
 
     /**
@@ -59,6 +93,7 @@ public class CalendarDayResource {
         if (calendarDay.getId() != null) {
             throw new BadRequestAlertException("A new calendarDay cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        calendarDay.setDate(LocalDate.now());
         CalendarDay result = calendarDayService.save(calendarDay);
         return ResponseEntity
             .created(new URI("/api/calendar-days/" + result.getId()))
